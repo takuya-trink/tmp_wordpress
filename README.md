@@ -75,8 +75,6 @@ PRODUCTION_SSH_PORT=
 
 ### 0. 事前準備
 
-nvmインストール
-
 nvm, Node.js npm のインストール
 
 [nvm + Node.js + npmのインストール](https://qiita.com/sansaisoba/items/242a8ba95bf70ba179d3)
