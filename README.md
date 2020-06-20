@@ -2,7 +2,13 @@
 
 WordPressの環境構築テンプレート
 
-まずはリポジトリをクローン
+- docker-compose で環境構築
+
+- wordmove で簡単デプロイ
+
+- Gulp でSass, ES6(Babel), 画像圧縮, シンプルなファイル管理を実現
+
+まずはリポジトリをクローンしてテンプレートをダウンロード。
 
 ```
 git clone https://github.com/takuya-trink/tmp_wordpress.git
