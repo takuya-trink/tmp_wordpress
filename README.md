@@ -1,5 +1,7 @@
 # WordPressの環境構築テンプレート（Docker + wordmove + Gulp）
 
+WordPressの環境構築テンプレート
+
 まずはリポジトリをクローン
 
 ```
