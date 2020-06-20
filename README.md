@@ -77,6 +77,6 @@ npm init -y
 ### 2. 必要な Node.js のパッケージをインストール
 
 ```
-npm install -D postcss-assets autoprefixer gulp-babel browser-sync postcss-clean gulp-concat del gulp-eslint postcss-flexbugs-fixes gulp gulp-htmlhint gulp-header gulp-imagemin imagemin-mozjpeg gulp-notify gulp-order gulp-plumber imagemin-pngquant gulp-postcss gulp-prettify gulp-rename gulp-replace gulp-sass gulp-scss-lint postcss-sorting gulp-uglify webpack webpack-cli babel-loader @babel/core @babel/preset-env
+npm install -D postcss-assets autoprefixer gulp-babel postcss-clean gulp-concat del postcss-flexbugs-fixes gulp gulp-header gulp-imagemin imagemin-mozjpeg gulp-notify gulp-order gulp-plumber imagemin-pngquant gulp-postcss gulp-prettify gulp-rename gulp-replace gulp-sass postcss-sorting gulp-uglify webpack webpack-cli babel-loader @babel/core @babel/preset-env
 ```
 

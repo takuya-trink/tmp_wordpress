@@ -14,9 +14,6 @@ const autoprefixer = require('autoprefixer');
 // JavaScriptのコードを変換 (ES6 -> ES5)
 const babel = require('gulp-babel');
 
-// ブラウザ自動更新
-const browserSync = require('browser-sync');
-
 // CSSを最小化する
 const clean = require('postcss-clean');
 
@@ -26,17 +23,11 @@ const concat = require('gulp-concat');
 // ファイル削除
 const del = require('del');
 
-// JavaScriptの構文チェック
-const eslint = require('gulp-eslint');
-
 // FlexBoxのバグを防ぐ
 const flexBugsFixes = require('postcss-flexbugs-fixes');
 
 // Gulp(タスクランナー)
 const gulp = require('gulp');
-
-// HTMLの構文チェック
-const htmlhint = require('gulp-htmlhint');
 
 // Gulpで処理したファイルの先頭に文字列を挿入
 // CSSの先頭にcharsetを記述したり、JavaScriptの先頭にライセンスを挿入
@@ -75,9 +66,6 @@ const replace = require('gulp-replace');
 // Sass
 const sass = require('gulp-sass');
 
-// Sassの構文チェック
-const scsslint = require('gulp-scss-lint');
-
 // SCCのプロパティ順序をソートする
 const sorting = require('postcss-sorting');
 
@@ -93,39 +81,35 @@ const uglify = require('gulp-uglify');
 // ------------------------------
 
 // WordPressのテーマ
-const wpTheme = 'wpThemeName'
-
-// ポート設定
-const port = 8000
-
+const wpTheme = 'test'
 
 // HTML,PHP,CSS,Javascriptファイルのディレクトリ設定
 const paths = {
     root: './tmp',
     html: {
         src: './tmp/html/**/*.html',
-        dest: './public/wp-content/themes/' + wpTheme +'/',
+        dest: './public/wp-content/themes/' + wpTheme + '/',
     },
     php: {
         src: './tmp/php/**/*.php',
-        dest: './public/wp-content/themes/' + wpTheme +'/',
+        dest: './public/wp-content/themes/' + wpTheme + '/',
     },
     styles: {
         src: './tmp/sass/**/*.scss',
-        dest: './public/wp-content/themes/' + wpTheme +'/',
-        map: './public/wp-content/themes/' + wpTheme +'/maps',
+        dest: './public/wp-content/themes/' + wpTheme + '/',
+        map: './public/wp-content/themes/' + wpTheme + '/maps',
     },
     scripts: {
         src: './tmp/js/**/*.js',
         jsx: './tmp/js/**/*.jsx',
-        dest: './public/wp-content/themes/' + wpTheme +'/js',
-        map: './public/wp-content/themes/' + wpTheme +'/js/maps',
+        dest: './public/wp-content/themes/' + wpTheme + '/js',
+        map: './public/wp-content/themes/' + wpTheme + '/js/maps',
         core: 'tmp/js/core/**/*.js',
         app: 'tmp/js/app/**/*.js',
     },
     images: {
         src: './tmp/img/**/*.{jpg,jpeg,png,svg,gif}',
-        dest: './public/wp-content/themes/' + wpTheme +'/images/',
+        dest: './public/wp-content/themes/' + wpTheme + '/images/',
     },
 };
 
@@ -289,68 +273,19 @@ function cleanMapFiles() {
     return del([paths.styles.map, paths.scripts.map]);
 }
 
-// ===Lint Tasks===
-// HTML Lint
-function htmlLint() {
-    return gulp
-        .src(paths.html.src)
-        .pipe(htmlhint())
-        .pipe(htmlhint.reporter());
-}
-// SASS Lint
-function sassLint() {
-    return gulp.src(paths.styles.src).pipe(
-        scsslint({
-            config: 'scss-lint.yml',
-        }),
-    );
-}
-// ESLint
-function esLint() {
-    return gulp
-        .src([paths.scripts.src, paths.scripts.jsx, '!./tmp/js/core/**/*.js'])
-        .pipe(
-            eslint({
-                useEslintrc: true,
-                fix: true,
-            }),
-        )
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
-}
 
-
-
-// ブラウザ更新の処理
-// ------------------------------
-
-const browserSyncOption = {
-    port: port,
-    server: {
-        baseDir: './public/',
-        index: 'index.php',
-    },
-    reloadOnRestart: true,
-};
-
-function browsersync(done) {
-    browserSync.init(browserSyncOption);
-    done();
-}
 
 // ウォッチタスクの処理
 // ------------------------------
 
-function watchFiles(done) {
-    const browserReload = () => {
-        browserSync.reload();
-        done();
-    };
-    gulp.watch(paths.styles.src).on('change', gulp.series(styles, browserReload));
-    gulp.watch(paths.scripts.src).on('change', gulp.series(scripts, esLint, browserReload));
-    gulp.watch(paths.html.src).on('change', gulp.series(html, browserReload));
-    gulp.watch(paths.php.src).on('change', gulp.series(php, browserReload));
+function watchFiles() {
+    gulp.watch(paths.styles.src).on('change', styles);
+    gulp.watch(paths.scripts.src).on('change', scripts);
+    gulp.watch(paths.html.src).on('change', html);
+    gulp.watch(paths.php.src).on('change', php);
 }
+
+
 
 // タスクの設定
 //
@@ -358,13 +293,9 @@ function watchFiles(done) {
 // npx gulp [task_name]
 // ------------------------------
 
-gulp.task('default', gulp.series(gulp.parallel(scripts, styles, html, php), gulp.series(browsersync, watchFiles)));
+gulp.task('default', gulp.series(gulp.parallel(scripts, styles, html, php), watchFiles));
 
 gulp.task('clean', cleanMapFiles);
 gulp.task('imagemin', images);
 gulp.task('sass-compress', sassCompress);
 gulp.task('build', gulp.series(gulp.parallel(scripts, 'imagemin', 'sass-compress', html, php), 'clean'));
-gulp.task('eslint', esLint);
-gulp.task('html-lint', htmlLint);
-gulp.task('sass-lint', sassLint);
-gulp.task('test', gulp.series(sassLint, esLint, htmlLint));
