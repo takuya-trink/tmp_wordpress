@@ -1,2 +1,8 @@
 # Macファインダーファイルのメタデータの不可視ファイルを無視
 .DS_Store
+
+# Node.js のモジュールを無視
+node_modules/
+
+# WordPressテーマを無視（./tmp/で管理するため）
+public/wp-content/themes/

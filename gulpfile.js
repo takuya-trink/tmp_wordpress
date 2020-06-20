@@ -96,20 +96,20 @@ const paths = {
     },
     styles: {
         src: './tmp/sass/**/*.scss',
-        dest: './public/wp-content/themes/' + wpTheme + '/',
-        map: './public/wp-content/themes/' + wpTheme + '/maps',
+        dest: './public/wp-content/themes/' + wpTheme + '/assets/',
+        map: './public/wp-content/themes/' + wpTheme + '/assets/maps/',
     },
     scripts: {
         src: './tmp/js/**/*.js',
         jsx: './tmp/js/**/*.jsx',
-        dest: './public/wp-content/themes/' + wpTheme + '/js',
-        map: './public/wp-content/themes/' + wpTheme + '/js/maps',
+        dest: './public/wp-content/themes/' + wpTheme + '/assets/js/',
+        map: './public/wp-content/themes/' + wpTheme + '/assets/js/maps/',
         core: 'tmp/js/core/**/*.js',
         app: 'tmp/js/app/**/*.js',
     },
     images: {
         src: './tmp/img/**/*.{jpg,jpeg,png,svg,gif}',
-        dest: './public/wp-content/themes/' + wpTheme + '/images/',
+        dest: './public/wp-content/themes/' + wpTheme + '/assets/images/',
     },
 };
 
