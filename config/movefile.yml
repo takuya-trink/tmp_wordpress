@@ -1,0 +1,54 @@
+global:
+  sql_adapter: default
+
+local:
+  vhost: "http://localhost:<%= ENV['LOCAL_SERVER_PORT'] %>"
+  wordpress_path: "/var/www/html/"
+  database:
+    name: "wordpress"
+    user: "root"
+    password: "wordpress"
+    host: "database"
+
+production:
+  vhost: "<%= ENV['PRODUCTION_URL'] %>"
+  wordpress_path: "<%= ENV['PRODUCTION_DIR_PATH'] %>"
+
+  database:
+    name: "<%= ENV['PRODUCTION_DB_NAME'] %>"
+    user: "<%= ENV['PRODUCTION_DB_USER'] %>"
+    password: "<%= ENV['PRODUCTION_DB_PASSWORD'] %>"
+    host: "<%= ENV['PRODUCTION_DB_HOST'] %>"
+    port: "<%= ENV['PRODUCTION_DB_PORT'] %>"
+
+  exclude:
+    - '.git/'
+    - '.gitignore'
+    - '.gitmodules'
+    - '.env'
+    - '.envrc'
+    - '.nvmrc'
+    - 'node_modules/'
+    - 'bin/'
+    - 'docker-compose.yml'
+    - 'gulpfile.js'
+    - 'tmp/*'
+    - 'Gemfile*'
+    - 'Movefile'
+    - 'movefile'
+    - 'movefile.yml'
+    - 'movefile.yaml'
+    - 'postcss-sorting.json'
+    - 'README.md'
+    - 'webpack.config.js'
+    - 'wp-config.php'
+    - 'wp-content/*.sql.gz'
+    - '*.orig'
+    - "wp-content/uploads/backwpup*/*"
+    - ".htaccess"
+
+  ssh:
+    host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
+    user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
+    port: "<%= ENV['PRODUCTION_SSH_PORT'] %>"
+    rsync_options: "--verbose"
