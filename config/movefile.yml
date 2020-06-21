@@ -28,6 +28,7 @@ production:
     - '.env'
     - '.envrc'
     - '.nvmrc'
+    - '.vscode/'
     - 'node_modules/'
     - 'bin/'
     - 'config/.ssh'
