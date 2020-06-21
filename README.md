@@ -121,6 +121,15 @@ npm WARN notsup Not compatible with your version of node/npm: watchpack-chokidar
 
 [npm audit fixでエラーを修正できない人のための解決策](https://fantastech.net/npm-audit-fix-not-working)
 
+### 3. gulpfile.js にテーマ名を記述
+
+gulpfile.js の下記部分にテーマ名を記述（この配下にtempファイルで編集したファイルが出力されます）。
+
+```
+// WordPressのテーマ
+const wpTheme = 'wpThemeName'
+```
+
 ***
 
 ## 開発環境を起動（Docker + Gulp）
